@@ -1,11 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-
+import FormError from "./FormError"
+import callApi from "../CallApi"
 const UploadPage = () => {
   const [file, setFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [positionName, setPositionName] = useState("")
   const [isManualEntry, setIsManualEntry] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("")
   const fileInputRef = useRef(null);
   const [jobDescription, setJobDescription] = useState('');
   const [manualEntry, setManualEntry] = useState({
@@ -59,17 +62,41 @@ const UploadPage = () => {
   const handleUpload = async () => {
     if ((!file && !isManualEntry) || !jobDescription.trim() || 
         (isManualEntry && Object.values(manualEntry).some(field => !field.trim()))) {
+          console.log("we failed to this if statement")
       setShowValidation(true);
       return;
     }
 
     setIsUploading(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    console.log('Job Description:', jobDescription);
-    console.log('Candidate Data:', isManualEntry ? manualEntry : 'CSV file');
-    setIsUploading(false);
-    setFile(null);
-    setShowValidation(false);
+  
+    const body = {
+      csvFile: await file.text(),
+      manual: false,
+      criteria: jobDescription,
+      positionName: positionName,
+    }
+    // console.log(file.text());
+    console.log("we are uploading",file.text());
+    
+    
+    callApi("/uploadListing", "POST", body).then((res) => {
+      if (res.code === "ok") {
+        console.log('Job Description:', jobDescription);
+        console.log('Candidate Data:', isManualEntry ? manualEntry : 'CSV file');
+        setIsUploading(false);
+        setFile(null);
+        setShowValidation(false);
+      } else {
+        console.log('Job Description:', jobDescription);
+        console.log('Candidate Data:', isManualEntry ? manualEntry : 'CSV file');
+        setErrorMessage("Something went wrong![]" + Math.random())
+        setIsUploading(false);
+        setFile(null);
+        setShowValidation(false);
+      }
+    })
+    // await new Promise(resolve => setTimeout(resolve, 2000));
+    
   };
 
   const handleEntryMethodChange = (isManual) => {
@@ -91,7 +118,10 @@ const UploadPage = () => {
         </div>
       </div>
 
-      <div className="flex-1 container mx-auto px-4 py-8">
+
+
+      <div className="flex-1 container mx-auto px-4 py-8 relative">
+        <FormError error={errorMessage} />
         <div className="max-w-2xl mx-auto">
           <div className="card bg-base-100 shadow-xl">
             <div className="card-body">
@@ -116,6 +146,11 @@ const UploadPage = () => {
 
               {!isManualEntry ? (
                 <div className="mb-8">
+                  <div className='bg-base-200 mb-2 p-3'>
+
+                    <input value={positionName} onChange={(e) => setPositionName(e.target.value)} className='input font-2 validator' type="text" required placeholder="Name of Position" />
+                    <div className="validator-hint font-1">Enter the Position Name</div>
+                  </div>
                   <div className="bg-base-200 p-4 rounded-lg mb-6">
                     <h3 className="font-semibold mb-2">CSV File Format</h3>
                     <p className="text-sm text-base-content/70 mb-2">Your CSV file must include the following columns in this order:</p>

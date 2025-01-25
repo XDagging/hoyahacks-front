@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import FormInput from './FormInput';
+import FormError from './FormError'
+import callApi from "../CallApi"
+
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -10,6 +13,91 @@ const SignupPage = () => {
     password: '',
     confirmPassword: ''
   });
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+
+
+  const processSubmit = () => {
+
+
+    let errorMessage = "";
+
+
+    const cleanedData = {}
+    for (let i=0; i<Object.keys(formData).length; i++) {
+      
+      cleanedData[Object.keys(formData)[i]] = formData[Object.keys(formData)[i]].trim();
+    }
+
+    console.log(cleanedData)
+    if (cleanedData.name.length === 0) {
+      errorMessage = "Enter your name"
+    } else if ((cleanedData.email.length<4) || (cleanedData.email.indexOf("@") === -1) ||(cleanedData.email.indexOf(".") === -1)) {
+      errorMessage = "Enter your email"
+    } else if ((cleanedData.password.length < 5)) {
+      errorMessage = "Your password must be 5 characters long"
+    } else if ((cleanedData.password !== cleanedData.confirmPassword)) {
+      errorMessage = "Your confirm and regular password aren't the same"
+    }
+
+
+    if (errorMessage === "") {
+      callApi("/signup", "POST", cleanedData).then((res) => {
+        if (res.message === "logged in") {
+          window.location.replace("/dashboard")
+        } else if (res.message === "user created") {
+          window.location.replace("/dashboard")
+        } else if (res.message === "account exists") {
+          window.location.replace("/dashboard") 
+        } else if (res.code === "err") {
+          setErrorMessage("Something went wrong"+"![]"+ Math.random())
+        }
+      })
+      
+    } else {
+      setErrorMessage(errorMessage+"![]"+ Math.random())
+      return;
+
+      
+
+
+    }
+
+
+
+
+
+
+    // callApi("/signup","POST", ).then((res) => {
+    //   if (res.message === "insufficient credits") {
+    //       setStatusMessage({message: "Insufficient credits to start this campaign", type: "err"})
+    //   } else if (res.message === 'not logged in') {
+    //       setStatusMessage({message: "Not logged in", type: "err"})
+    //       window.location.replace("/login")
+    //   } else if (res.code === "err") {
+    //       setStatusMessage({message: "Something went wrong", type: "err"})
+    //   } else if (res.code === "ok") {
+    //       setStatusMessage({message: "All went well", type:"ok"})
+    //       setCampaign({
+    //           target: "homesellers",
+    //           credits: 0,
+    //           aiThreshold: 50,
+    //           address: "",
+    //       })
+    //       setNewCampaign(true)
+    //   } else {
+    //       setStatusMessage({message: "Something went wrong", type: "err"})
+    //   }
+    
+    // })
+  }
+
+
+
+
+
+
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -40,12 +128,13 @@ const SignupPage = () => {
         </Link>
       </div>
       
-      <div className="flex-1 flex items-center justify-center p-4">
+      <div className="flex-1 flex items-center justify-center p-4 relative">
+        <FormError error={errorMessage} />
         <div className="card w-96 bg-base-100 shadow-xl">
           <div className="card-body">
             <h2 className="card-title text-2xl font-bold text-center w-full mb-6">Create Account</h2>
             
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-4">
               <FormInput
                 label="Full Name"
                 type="text"
@@ -85,10 +174,13 @@ const SignupPage = () => {
 
               <button 
                 type="submit" 
+                onClick={() => processSubmit()}
                 className={`btn btn-primary w-full mt-6 ${loading ? 'loading' : ''}`}
                 disabled={loading}
+                
               >
                 {loading ? 'Creating account...' : 'Create Account'}
+                
               </button>
 
               <div className="divider">OR</div>
@@ -106,7 +198,7 @@ const SignupPage = () => {
                 </svg>
                 Continue with Google
               </button>
-            </form>
+            </div>
 
             <div className="text-center mt-6">
               Already have an account?{' '}

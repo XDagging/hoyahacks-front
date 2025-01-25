@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Typewriter from 'typewriter-effect';
 
+
 const HomePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 

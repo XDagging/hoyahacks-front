@@ -1,22 +1,60 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import FormInput from './FormInput';
+import FormError from './FormError'
+import callApi from "../CallApi"
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("")
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setLoading(false);
-    navigate('/dashboard');
-  };
+
+
+  const handleLogin = () => {
+    const cleanedData = {}
+    for (let i=0; i<Object.keys(formData).length; i++) {
+      
+      cleanedData[Object.keys(formData)[i]] = formData[Object.keys(formData)[i]].trim();
+    }
+
+    let errorMessage = ""
+    if ((cleanedData.email.length<4) || (cleanedData.email.indexOf("@") === -1) ||(cleanedData.email.indexOf(".") === -1)) {
+          errorMessage = "Enter your email"
+    } else if ((cleanedData.password.length < 5)) {
+          errorMessage = "Your password must be 5 characters long"
+    } 
+    
+    
+        if (errorMessage === "") {
+          callApi("/login", "POST", cleanedData).then((res) => {
+            if (res.code === "ok") {
+              window.location.replace("/dashboard")
+
+            } else if (res.code === "err") {
+              setErrorMessage("Invalid credentials![]"+ Math.random())
+            }
+          })
+          return;
+        } else {
+          console.log(errorMessage)
+          setErrorMessage(errorMessage + "![]"+ Math.random());
+    
+          
+    
+    
+        }
+
+
+
+
+
+  }
+ 
 
   return (
     <div className="min-h-screen bg-base-200 flex-col">
@@ -34,12 +72,13 @@ const LoginPage = () => {
         </Link>
       </div>
       
-      <div className="flex-1 flex items-center justify-center p-4">
+      <div className="flex-1 flex items-center justify-center p-4 relative"> 
+        <FormError error={errorMessage} />
         <div className="card w-96 bg-base-100 shadow-xl">
           <div className="card-body">
             <h2 className="card-title text-2xl font-bold text-center w-full mb-6">Sign In</h2>
             
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-4">
               <FormInput
                 label="Email"
                 type="email"
@@ -62,6 +101,7 @@ const LoginPage = () => {
                 type="submit" 
                 className={`btn btn-primary w-full mt-6 ${loading ? 'loading' : ''}`}
                 disabled={loading}
+                onClick={handleLogin}
               >
                 {loading ? 'Signing in...' : 'Sign In'}
               </button>
@@ -81,7 +121,7 @@ const LoginPage = () => {
                 </svg>
                 Continue with Google
               </button>
-            </form>
+            </div>
 
             <div className="text-center mt-6">
               Don't have an account?{' '}
