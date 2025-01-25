@@ -87,7 +87,7 @@ const UploadPage = () => {
           </Link>
         </div>
         <div className="flex-none">
-          <Link to="/dashboard" className="btn btn-ghost">Dashboard</Link>
+          <Link to="/dashboard" className="btn btn-primary">Dashboard</Link>
         </div>
       </div>
 

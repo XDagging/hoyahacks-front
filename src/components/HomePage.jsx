@@ -82,8 +82,8 @@ const HomePage = () => {
             </>
           ) : (
             <div className="flex gap-2">
-              <Link to="/login" className="btn btn-ghost btn-sm">Login</Link>
-              <Link to="/signup" className="btn btn-primary btn-sm">Sign Up</Link>
+              <Link to="/login" className="btn btn-ghost btn-lg">Login</Link>
+              <Link to="/signup" className="btn btn-primary btn-lg">Sign Up</Link>
             </div>
           )}
         </div>
