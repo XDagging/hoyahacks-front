@@ -10,43 +10,80 @@ const HomePage = () => {
       {/* Navbar */}
       <div className="navbar bg-base-100 shadow-lg">
         <div className="navbar-start">
-          <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-              </svg>
-            </label>
-            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              {isLoggedIn && (
-                <>
-                  <li><Link to="/upload">Upload Candidates</Link></li>
-                  <li><Link to="/dashboard">Dashboard</Link></li>
-                </>
-              )}
-            </ul>
-          </div>
           <Link to="/" className="btn btn-ghost normal-case text-xl">
             <img src="/logo.png" alt="HireBettr" className="h-8 mr-2" />
             HireBettr
           </Link>
         </div>
-        <div className="navbar-center hidden lg:flex">
-          {isLoggedIn && (
-            <ul className="menu menu-horizontal px-1">
-              <li><Link to="/dashboard">Dashboard</Link></li>
-              <li><Link to="/upload">Upload Candidates</Link></li>
-            </ul>
-          )}
-        </div>
-        <div className="navbar-end">
+        
+        <div className="navbar-end gap-2">
           {isLoggedIn ? (
-            <button onClick={() => setIsLoggedIn(false)} className="btn btn-primary">
-              Logout
-            </button>
+            <>
+              <Link 
+                to="/dashboard" 
+                className="btn btn-ghost btn-sm hover:bg-base-200"
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  strokeWidth={1.5} 
+                  stroke="currentColor" 
+                  className="w-5 h-5 mr-1"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" 
+                  />
+                </svg>
+                Dashboard
+              </Link>
+              <Link 
+                to="/upload" 
+                className="btn btn-outline btn-sm hover:bg-base-200"
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  strokeWidth={1.5} 
+                  stroke="currentColor" 
+                  className="w-5 h-5 mr-1"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" 
+                  />
+                </svg>
+                Upload Candidates
+              </Link>
+              <button 
+                onClick={() => setIsLoggedIn(false)} 
+                className="btn btn-primary btn-sm"
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  strokeWidth={1.5} 
+                  stroke="currentColor" 
+                  className="w-5 h-5 mr-1"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" 
+                  />
+                </svg>
+                Logout
+              </button>
+            </>
           ) : (
             <div className="flex gap-2">
-              <Link to="/login" className="btn btn-primary">Login</Link>
-              <Link to="/signup" className="btn btn-secondary">Sign Up</Link>
+              <Link to="/login" className="btn btn-ghost btn-sm">Login</Link>
+              <Link to="/signup" className="btn btn-primary btn-sm">Sign Up</Link>
             </div>
           )}
         </div>
