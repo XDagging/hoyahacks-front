@@ -67,8 +67,8 @@ const LoginPage = () => {
           </button>
         </div>
         <Link to="/" className="btn btn-ghost normal-case text-xl">
-          <img src="/logo.png" alt="HireBettr" className="h-8 mr-2" />
-          HireBettr
+          {/* <img src="/logo.png" alt="HiCruit" className="h-8 mr-2" /> */}
+          HiCruit
         </Link>
       </div>
       

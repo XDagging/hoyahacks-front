@@ -105,12 +105,12 @@ const UploadPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-base-200 flex flex-col">
+    <div className="min-h-screen bg-base-200 flex flex-col font-1">
       <div className="navbar bg-base-100 shadow-lg">
         <div className="flex-1">
           <Link to="/" className="btn btn-ghost normal-case text-xl">
-            <img src="/logo.png" alt="HireBettr" className="h-8 mr-2" />
-            HireBettr
+            {/* <img src="/logo.png" alt="HiCruit" className="h-8 mr-2" /> */}
+            HiCruit
           </Link>
         </div>
         <div className="flex-none">
@@ -137,10 +137,11 @@ const UploadPage = () => {
                   CSV Upload
                 </a>
                 <a 
-                  className={`tab ${isManualEntry && 'tab-active'}`}
-                  onClick={() => handleEntryMethodChange(true)}
+                  className="tab cursor-not-allowed  opacity-75 select-none flex flex-row gap-2"
+               
                 >
                   Manual Entry
+                  <badge className="badge badge-primary font-1">Beta</badge>
                 </a>
               </div>
 

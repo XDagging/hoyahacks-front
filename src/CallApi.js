@@ -1,6 +1,6 @@
 export default function callApi(path,method, body) {
 
-    let endpoint = "https://api.sniphomes.com"
+    let endpoint = "https://api.HiCruit.us"
 
     console.log(window.location.href)
     if (window.location.href.indexOf("localhost") > 0) {
@@ -8,7 +8,7 @@ export default function callApi(path,method, body) {
     }
     
 
-    console.log('this was called    ')
+    console.log('this was called')
 
     
     return new Promise(async(resolve) => {
