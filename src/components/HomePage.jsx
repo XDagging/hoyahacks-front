@@ -4,6 +4,8 @@ import Typewriter from 'typewriter-effect';
 import demoOne from "../assets/demoOne.mp4"
 import demoTwo from "../assets/demoTwo.mp4"
 import demoThree from "../assets/demoThree.png"
+import Footer from "./Footer"
+import Navbar from "./Navbar"
 
 const HomePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -11,55 +13,12 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-base-200">
       {/* Navbar */}
-      <div className="navbar bg-base-100 shadow-lg">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-              </svg>
-            </label>
-            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              {isLoggedIn && (
-                <>
-                  <li><Link to="/upload">Upload Candidates</Link></li>
-                  <li><Link to="/dashboard">Dashboard</Link></li>
-                </>
-              )}
-            </ul>
-          </div>
-          <Link to="/" className="btn btn-ghost normal-case text-xl">
-            {/* <img src="/logo.png" alt="HiCruit" className="h-8 mr-2" /> */}
-            HiCruit
-          </Link>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          {isLoggedIn && (
-            <ul className="menu menu-horizontal px-1">
-              <li><Link to="/dashboard">Dashboard</Link></li>
-              <li><Link to="/upload">Upload Candidates</Link></li>
-            </ul>
-          )}
-        </div>
-        <div className="navbar-end">
-          {isLoggedIn ? (
-            <button onClick={() => setIsLoggedIn(false)} className="btn btn-primary">
-              Logout
-            </button>
-          ) : (
-            <div className="flex gap-2">
-              <Link to="/login" className="btn btn-primary">Login</Link>
-              <Link to="/signup" className="btn btn-secondary">Sign Up</Link>
-            </div>
-          )}
-        </div>
-      </div>
-
+      <Navbar />
       {/* Hero Section */}
       <div className="hero min-h-[70vh] bg-base-200 font-1">
         <div className="hero-content text-center">
-          <div className="max-w-md">
-            <h1 className="text-6xl font-bold mb-8">Welcome to HiCruit</h1>
+          <div className="max-w-xl">
+            <h1 className="text-6xl font-bold mb-8">Simplify your recruiting process</h1>
             <div className="text-4xl font-semibold text-primary mb-8">
               <Typewriter
                 options={{
@@ -75,10 +34,53 @@ const HomePage = () => {
                 }}
               />
             </div>
-            {!isLoggedIn && (
-              <Link to="/signup" className="btn btn-primary btn-lg">Get Started</Link>
-            )}
+                <div className="flex flex-row gap-2 w-fit mx-auto">
+                <Link to="/signup" className="btn btn-primary btn-lg">Get Started</Link>
+                <Link to="/works" className="btn btn-lg btn-ghost">Learn more<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+  <path fillRule="evenodd" d="M16.72 7.72a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 0 1 0 1.06l-3.75 3.75a.75.75 0 1 1-1.06-1.06l2.47-2.47H3a.75.75 0 0 1 0-1.5h16.19l-2.47-2.47a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+</svg>
+</Link>
+                </div>
+              
           </div>
+        </div>
+      </div>
+
+      {/* Features/How it works */}
+      <div className='p-10'>
+        <p className='text-center font-1 text-xl mb-8 text-primary'>Features</p>
+        <div className='grid grid-cols-2 gap-2 p-2 rounded-box'>
+          <div className='p-3'>
+            <div className='badge badge-primary font-1'>Gamechanger</div>
+            <p className='font-1 text-5xl my-2 text-base-content'><span className="landing-gradiant">AI-Powered</span> voice screenings</p>
+
+            <p className='font-1 text-lg text-base-content'>We understand how time consuming and frustruating live screenings are. Let's change that...</p>
+            <div className='bg-base-300  mt-3 rounded-box p-3 font-1'>
+              <p className='font-1 text-lg font-semibold'>Hicruit Automatically:</p>
+              <ul className=''>
+                <li className='flex flex-row gap-2'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+  <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
+</svg>
+Asks questions to the candidate</li>
+                <li className='flex flex-row gap-2'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+  <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
+</svg>
+Analyze candidate based on predefined criteria</li>
+                <li className='flex flex-row gap-2'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+  <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
+</svg>
+Saves you hours</li>
+              </ul>
+            </div>
+            <button className='btn font-1 mt-2 btn-lg btn-primary btn-outline !text-normal'>Try it for yourself<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+  <path fillRule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clipRule="evenodd" />
+</svg>
+</button>
+          </div>
+          <div>
+            <img src="https://framerusercontent.com/images/Ilavd5UZHEYKyEqxSrcQvLwU4g.png?scale-down-to=1024" className='w-full h-full object-cover' />
+          </div>
+          
         </div>
       </div>
 
@@ -185,7 +187,7 @@ const HomePage = () => {
       </div>
 
       {/* Feature Cards */}
-      <div className="container mx-auto px-4 py-16 bg-base-100 font-1">
+      <div className="mx-auto px-4 py-16 bg-base-100 font-1">
         <h2 className="text-3xl font-bold text-center mb-12">Why Choose HiCruit?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300">
@@ -219,12 +221,7 @@ const HomePage = () => {
       </div>
 
       {/* Footer */}
-      <footer className="p-4 bg-base-300">
-        <div className="flex justify-start items-center gap-2">
-          {/* <img src="/logo.png" alt="HiCruit" className="h-8" /> */}
-          <p className="font-bold text-lg">HiCruit</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

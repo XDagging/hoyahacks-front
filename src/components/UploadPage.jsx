@@ -118,9 +118,16 @@ const UploadPage = () => {
         </div>
       </div>
 
+      
+
 
 
       <div className="flex-1 container mx-auto px-4 py-8 relative">
+        {isUploading && (
+
+          <></>
+        )}
+        
         <FormError error={errorMessage} />
         <div className="max-w-2xl mx-auto">
           <div className="card bg-base-100 shadow-xl">
@@ -147,8 +154,8 @@ const UploadPage = () => {
 
               {!isManualEntry ? (
                 <div className="mb-8">
-                  <div className='bg-base-200 mb-2 p-3'>
-
+                  <div className=''>
+                    <p className='font-1 font-semibold'>Position Name</p>
                     <input value={positionName} onChange={(e) => setPositionName(e.target.value)} className='input font-2 validator' type="text" required placeholder="Name of Position" />
                     <div className="validator-hint font-1">Enter the Position Name</div>
                   </div>

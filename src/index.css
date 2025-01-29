@@ -2,7 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+/* dark --prefersdark; */
 
 
 
@@ -12,4 +16,11 @@
 
 .font-2 {
   font-family: "PT Sans", serif;
+}
+
+.landing-gradiant {
+  background: #4C94D9;
+  background: repeating-linear-gradient(to right, #4C94D9 0%, #C86973 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

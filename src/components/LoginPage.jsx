@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import FormInput from './FormInput';
 import FormError from './FormError'
 import callApi from "../CallApi"
+import Footer from "./Footer"
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -57,8 +58,9 @@ const LoginPage = () => {
  
 
   return (
+    <>
     <div className="min-h-screen bg-base-200 flex-col">
-      <div className="navbar bg-base-100 shadow-lg">
+      <div className="navbar font-1 bg-base-100 shadow-lg">
         <div className="flex-none">
           <button onClick={() => navigate(-1)} className="btn btn-square btn-ghost">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -132,7 +134,12 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
+
+      
     </div>
+    
+    <Footer />
+    </>
   );
 };
 

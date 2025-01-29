@@ -168,9 +168,9 @@ const DashboardPage = () => {
 
       <div className='flex flex-row gap-3'>
 
-        <div className='sticky top-0 left-0 bg-base-300 w-80 flex min-h-[90vh] flex-col items-center justify-items-center'>
+        <div className='sticky border-r top-0 left-0 bg-base-200 w-80 flex min-h-[90vh] flex-col items-center justify-items-center'>
    
-          <div className='bg-base-100 p-4 m-1 rounded-box w-full'>
+          <div className='p-4 w-full'>
           <div className='flex sm:flex-row flex-col gap-2 items-center'>
             <div className='avatar avatar-placeholder'>
               <div className='w-12 rounded-full bg-base-300'>
@@ -198,7 +198,7 @@ const DashboardPage = () => {
           </button>
           </div>
 
-          <div className='bg-base-100 m-1 p-4 w-full '>
+          <div className='p-4 w-full '>
             <div className='flex flex-col items-center gap-1 max-h-[40vh]'>
               <p className='font-1 font-semibold mb-1'>Active Listings</p>
 
